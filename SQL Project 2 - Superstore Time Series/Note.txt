@@ -1,0 +1,91 @@
+Time Series Analysis
+Time series data is a collection of variables whose values depend on time. Analyzing time-series data is trivial with Python, but with SQL, it becomes a pretty challenging task. Work on this project to understand what difficulties one might encounter using SQL for time series analysis. 
+
+Dataset: Use the SuperStore Time Series Dataset from Kaggle to work on this project. The dataset contains 20 columns, namely, Row ID, Order ID, Order Date, Ship Date, Ship Mode, Customer ID, Customer Name, Segment, Country, and City.
+
+SQL Project Idea: Clean the data first using the data preprocessing method and make it SQL-ready. After that, complete the following tasks:
+
+
+
+1. Use the LEAD window function to create a new column sales_next that displays the sales of the next row in the dataset. This function will help you quickly compare a given row’s values and values in the next row.
+
+2. Create a new column sales_previous to display the values of the row above a given row.
+
+3. Rank the data based on sales in descending order using the RANK function.
+
+4. Use common SQL commands and aggregate functions to show the monthly and daily sales averages.
+
+5. Analyze discounts on two consecutive days.
+
+6. Evaluate moving averages using the window functions.
+
+7. Find out the postcode with the highest average price per sale? (Using Aggregate Functions)
+
+8. Use the window function to deduce the top six postcodes by year's price.
+
+
+
+USING SQL SHELL(PSQL)
+
+postgres=# SELECT version();
+                          version
+------------------------------------------------------------
+ PostgreSQL 15.0, compiled by Visual C++ build 1914, 64-bit
+(1 row)
+
+
+postgres=# SELECT now();
+              now
+-------------------------------
+ 2022-10-24 06:44:39.019113+01
+(1 row)
+
+
+postgres=# CREATE DATABASE firstdb;
+CREATE DATABASE
+postgres=# \l
+
+
+postgres=# \c firstdb
+You are now connected to database "firstdb" as user "postgres".
+firstdb=# CREATE TABLE modTable (orderID int, cust_name char(20));
+CREATE TABLE
+firstdb=# INSERT INTO modTable VALUES (1, 'Frank'), (2, 'Mason'), (3, 'Williams');
+INSERT 0 3
+firstdb=# SELECT * FROM modTable;
+ orderid |      cust_name
+---------+----------------------
+       1 | Frank
+       2 | Mason
+       3 | Williams
+(3 rows)
+
+
+
+
+CREATE TABLE superstore.ss_data
+(
+    "Row ID" integer NOT NULL,
+    "Order ID" character varying NOT NULL,
+    "Order Date" date NOT NULL,
+    "Ship Date" date NOT NULL,
+    "Ship Mode" character,
+    "Customer ID" character varying NOT NULL,
+    "Customer Name" character,
+    "Segment" character,
+    "Country" character,
+    "City" character,
+    "State" character,
+    "Postal code" integer NOT NULL,
+    "Region" character,
+    "Product ID" character varying NOT NULL,
+    "Category" character,
+    "Sub-category" character,
+    "Product Name" character varying,
+    "Sales" numeric,
+    "Quantity" integer,
+    "Discount" numeric
+);
+
+ALTER TABLE IF EXISTS superstore.ss_data
+    OWNER to postgres;
