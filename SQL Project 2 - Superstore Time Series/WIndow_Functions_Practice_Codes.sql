@@ -1,29 +1,4 @@
-USE [FIRSTDB]
-GO
-
-/****** CREATE OBJECT:  TABLE [dbo].[Superstore$]    Script Date: 10/26/2022 3:46:57 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[Superstore$](
-	[Order_id] [nvarchar](255) NULL,
-	[Order_Date] [datetime] NULL,
-	[Customer_id] [nvarchar](255) NULL,
-	[Segment] [nvarchar](255) NULL,
-	[State] [nvarchar](255) NULL,
-	[Postal_Code] [float] NULL,
-	[Region] [nvarchar](255) NULL,
-	[Product_id] [nvarchar](255) NULL,
-	[Category] [nvarchar](255) NULL,
-	[Sub-Category] [nvarchar](255) NULL,
-	[Sales] [float] NULL,
-	[Quantity] [float] NULL,
-	[Discount] [float] NULL
-) ON [PRIMARY]
-GO
+/**I used MSSql Server for this query.**/
 
 
 /*** ALL RECORDS IN THE SUPERSTORE TABLE ***/
@@ -187,7 +162,7 @@ FROM Superstore$
 ORDER BY Region, Quantity DESC
 
 --To check the position of a specific value in a distribution present/absent in the given dataset, for a certain category too.
---What position will someone who ordered product quantity of 10 fall in each region. Figure out if it runs in postgreSQL
+--What position will someone who ordered product quantity of 10 fall in each region.
 
 SELECT Region, RANK(10) WITHIN GROUP (ORDER BY Quantity DESC), DENSE_RANK(10) WITHIN GROUP (ORDER BY Quantity DESC)
 FROM Superstore$
@@ -228,13 +203,3 @@ SELECT Order_id, Customer_id, Order_Date,
 		LEAD(Order_Date,1) OVER (PARTITION BY Customer_id ORDER BY Order_Date) AS 'next_order',
 		LAG(Order_Date,1) OVER (PARTITION BY Customer_id ORDER BY Order_Date) AS 'previuos_order'
 FROM Superstore$
-
-
-
-
-
-
-
-
-
-/*** OTHER FUNCTIONS: CTEs(WITH & WITH RECURSIVE STATEMENT); (WIDTH_BUCKET, NTH_VALUE, PERCENT_RANK & CUME_DIST); FUZZY STRING MATCH(SOUNDEX, DIFFERENCE, AND LEVENSHTEIN); CAST< EXTRACT FUNCTIONS, STRING & DATE FUNCTIONS ***/
